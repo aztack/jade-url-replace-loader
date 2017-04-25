@@ -1,7 +1,7 @@
 {
   "name": "jade-url-replace-loader",
   "version": "1.0.0",
-  "description": "Replace src and href of image, script and link tag",
+  "description": "A Webpack loader for replacing src and href of image, script and link tag",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec"
