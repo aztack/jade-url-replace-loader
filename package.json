@@ -1,7 +1,7 @@
 {
   "name": "jade-url-replace-loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "Replace src and href of image, script and link tag",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec"
@@ -15,6 +15,6 @@
     "mocha": "^2.3.4",
     "should": "^9.0.2"
   },
-  "author": "aztack",
+  "author": "aztack@163.com",
   "license": "ISC"
 }

@@ -14,7 +14,7 @@ function randomIdent() {
 module.exports = function(content) {
   this.cacheable && this.cacheable();
   var config = loaderUtils.getOptions(this) || {};
-  var attributes = ["img:src"];
+  var attributes = ["img:src", "script:src", "link:href"];
   if(config.attrs !== undefined) {
     if(typeof config.attrs === "string")
       attributes = config.attrs.split(" ");
@@ -25,7 +25,6 @@ module.exports = function(content) {
     else
       throw new Error("Invalid value to config parameter attrs");
   }
-  // console.log(attributes)
   var root = config.root;
   var links = attrParse(content, function(tag, attr) {
     return attributes.indexOf(tag + ":" + attr) >= 0;
@@ -34,10 +33,6 @@ module.exports = function(content) {
   var data = {};
   content = [content];
   links.forEach(function(link) {
-    // if(!loaderUtils.isUrlRequest(link.value, root)) {
-    //   return;
-    // }
-
     var uri = url.parse(link.value);
     if (uri.hash !== null && uri.hash !== undefined) {
       uri.hash = null;
@@ -64,6 +59,5 @@ module.exports = function(content) {
     if(!data[match]) return match;
     return '" + ' + JSON.stringify(getEmitedFilePath(data[match]), root) + ' + "';
   }) + ";";
-  // console.log(res)
   return res
 }
