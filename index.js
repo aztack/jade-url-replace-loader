@@ -7,21 +7,13 @@ var loaderUtils = require("loader-utils");
 var assign = require("object-assign");
 var url = require("url");
 
-
 function randomIdent() {
-  return "xxxHTMLLINKxxx" + Math.random() + Math.random() + "xxx";
-}
-
-function getLoaderConfig(context) {
-  var query = loaderUtils.getOptions(context) || {};
-  var config = (context.options && context.options.vue && context.options.vue.html) || {};
-  delete query.config;
-  return assign(query, config);
+  return 'xxxJADELINKxxx' + Math.random() + Math.random() + "xxx";
 }
 
 module.exports = function(content) {
   this.cacheable && this.cacheable();
-  var config = getLoaderConfig(this);
+  var config = loaderUtils.getOptions(this) || {};
   var attributes = ["img:src"];
   if(config.attrs !== undefined) {
     if(typeof config.attrs === "string")
@@ -33,6 +25,7 @@ module.exports = function(content) {
     else
       throw new Error("Invalid value to config parameter attrs");
   }
+  // console.log(attributes)
   var root = config.root;
   var links = attrParse(content, function(tag, attr) {
     return attributes.indexOf(tag + ":" + attr) >= 0;
@@ -41,7 +34,9 @@ module.exports = function(content) {
   var data = {};
   content = [content];
   links.forEach(function(link) {
-    if(!loaderUtils.isUrlRequest(link.value, root)) return;
+    // if(!loaderUtils.isUrlRequest(link.value, root)) {
+    //   return;
+    // }
 
     var uri = url.parse(link.value);
     if (uri.hash !== null && uri.hash !== undefined) {
@@ -61,15 +56,14 @@ module.exports = function(content) {
   });
   content.reverse();
   content = content.join("");
+  content = JSON.stringify(content);
 
-  if(config.interpolate) {
-    content = compile('`' + content + '`').code;
-  } else {
-    content = JSON.stringify(content);
-  }
+  var getEmitedFilePath = config.getEmitedFilePath || function (v) { return v;}
 
-  return "module.exports = " + content.replace(/xxxHTMLLINKxxx[0-9\.]+xxx/g, function(match) {
+  var res = "module.exports = " + content.replace(/xxxJADELINKxxx[0-9\.]+xxx/g, function(match) {
     if(!data[match]) return match;
-    return '" + require(' + JSON.stringify(loaderUtils.urlToRequest(data[match], root)) + ') + "';
+    return '" + ' + JSON.stringify(getEmitedFilePath(data[match]), root) + ' + "';
   }) + ";";
+  // console.log(res)
+  return res
 }
