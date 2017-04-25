@@ -1,0 +1,20 @@
+{
+  "name": "jade-url-replace-loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "dependencies": {
+    "fastparse": "^1.0.0",
+    "loader-utils": "^1.0.2",
+    "object-assign": "^4.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^9.0.2"
+  },
+  "author": "aztack",
+  "license": "ISC"
+}
