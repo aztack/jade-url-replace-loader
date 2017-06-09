@@ -5,6 +5,7 @@ var attrParse = require("../lib/attributesParser");
 function test(name, html, result) {
   it("should parse " + name, function() {
     attrParse(html, function(tag, attr) {
+      if(tag === "a" && attr === "href") return true;
       if(tag === "img" && attr === "src") return true;
       if(tag === "link" && attr === "href") return true;
       if(tag === "div" && attr === "data-videomp4") return true;
@@ -36,6 +37,7 @@ describe("parser", function() {
   test("alphanumeric", 'div(data-videomp4="video.mp4")', ["video.mp4"]);
   test("use", 'use(xlink:href="vector.svg" /)', ["vector.svg"]);
   test("vue shorthands", 'img(:src="imageUrl")', []);
+  test("a with jade string interpolation and anchor", 'a(href="/#{prefix}?q=1&p=中文#anchor")test', ['/#{prefix}?q=1&p=中文#anchor']);
 });
 
 describe("locations", function() {

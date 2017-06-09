@@ -35,8 +35,8 @@ module.exports = function(content) {
   links.forEach(function(link) {
     var uri = url.parse(link.value);
     if (uri.hash !== null && uri.hash !== undefined) {
+      link.value = decodeURIComponent(uri.format());
       uri.hash = null;
-      link.value = uri.format();
       link.length = link.value.length;
     }
 
@@ -56,7 +56,7 @@ module.exports = function(content) {
   var getEmitedFilePath = config.getEmitedFilePath || function (v) { return v;}
 
   var res = "module.exports = " + content.replace(/xxxJADELINKxxx[0-9\.]+xxx/g, function(match) {
-    if(!data[match]) return match;
+    if(!data[match]) return '';
     return '" + ' + JSON.stringify(getEmitedFilePath(data[match]), root) + ' + "';
   }) + ";";
   return res
