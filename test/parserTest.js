@@ -19,6 +19,7 @@ function test(name, html, result) {
 describe("parser", function() {
   test("normal", 'Text img(src="image.png")img(src="image2.png")', ["image.png", "image2.png"]);
   test("normal with class", 'Text img.logo(src="image.png")img(src="image2.png")', ["image.png", "image2.png"]);
+  test("normal with class with number and dash", 'Text img.logo-1.cls#id(src="image.png")img(src="image2.png")', ["image.png", "image2.png"]);
   test("normal with id", 'Text img.logo#idname(src="image.png")img(src="image2.png")', ["image.png", "image2.png"]);
   test("single-quotes", "Text img(src='image.png')img(src='image2.png')", ["image.png", "image2.png"]);
   test("whitespace", 'T ex t  img(\t  src =   "image.png"   )  img(\t\nsrc\n=\n"image2.png"\n)', ["image.png", "image2.png"]);
