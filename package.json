@@ -1,6 +1,6 @@
 {
   "name": "jade-url-replace-loader",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Webpack loader for replacing src and href of image, script and link tag",
   "main": "index.js",
   "scripts": {
