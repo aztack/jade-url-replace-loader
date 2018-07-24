@@ -1,6 +1,7 @@
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
+  Original Author Tobias Koppers @sokra
+  Modified by aztack
 */
 var attrParse = require("./lib/attributesParser");
 var loaderUtils = require("loader-utils");
